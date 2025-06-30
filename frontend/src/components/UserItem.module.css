@@ -1,0 +1,61 @@
+#userList {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 4px;
+  margin-top: 15px;
+  margin-left: 10px;
+        }
+
+.user-button {
+  width: 250px;
+  height: 45px;
+  display: flex;
+  position:relative;
+  justify-content: space-between;
+  align-items: center;
+  background: #ffffff;
+  padding: 0 15px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  box-sizing: border-box;
+  border-radius: 4px 0 0 4px;
+  cursor: pointer;
+            }
+.user-button:hover {
+  box-shadow: 0 0 10px rgba(255, 253, 161, 0.7);
+        }
+.user-name {
+  font-size: 1.2rem;
+  color: #1f1f1f;
+     }
+.delete-btn {
+  width: 45px;
+  height: 45px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #acabab;
+  border: none;
+  border-radius: 0 4px 4px 0;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.167);
+   }
+.user-name {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  flex-grow: 1;
+        }
+
+.delete-btn:hover {
+  background-color: #e45f5f;
+  }
+.user-wrapper {
+  display: flex;
+  align-items: center;
+  height: 45px;
+  margin: 6px auto;
+  width: fit-content;
+        }

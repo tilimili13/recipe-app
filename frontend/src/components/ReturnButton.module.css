@@ -1,0 +1,21 @@
+.returnBtn {   
+  bottom: 20px;         
+  left: 20px;           
+  width: 100px;         
+  height: 35px;         
+  padding: 6px 10px;    
+  font-size: 13px;      
+  border: none;
+  border-radius: 4px;
+  background-color: rgb(255, 198, 13);
+  color: rgb(31, 31, 31);
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  display: block;
+  transition: background-color 0.3s ease;
+  position: absolute;
+}
+
+.returnBtn:hover {
+  background-color: rgb(230, 180, 10); 
+}

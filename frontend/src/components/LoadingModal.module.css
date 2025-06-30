@@ -1,0 +1,42 @@
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(163, 163, 163, 0.139); 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modalContent h3 {
+  color: black;
+  padding: 20px;
+  text-align: center;
+  font-size: 18px;
+  margin-bottom: 10px;
+  
+}
+
+.modalContent {
+  width: 150px;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(255, 248, 244);
+  border-radius: 4px;
+  padding: 20px;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+}
+
+.spinner {
+ width: 50px;
+ height: 50px;
+ align-items: center;
+ margin-top: 10px;
+ display: block;
+}

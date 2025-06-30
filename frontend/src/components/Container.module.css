@@ -1,0 +1,10 @@
+.container {
+  width: 320px;
+  height: 400px;
+  background-color: rgb(255, 248, 244);
+  border-radius: 4px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  margin: 0 auto;
+  position: relative;
+}
