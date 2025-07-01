@@ -5,7 +5,10 @@ const db = require('./db');
 const app = express();
 const PORT = 5000;
 
-app.use(cors());
+app.use(cors({
+  origin: 'http://my-recipe-frontend.s3-website-us-east-1.amazonaws.com',
+  credentials: true
+}));
 app.use(express.json());
 
 app.get('/api/ingredients', (_req, res) => {

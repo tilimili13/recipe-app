@@ -1,18 +1,19 @@
 const mysql = require('mysql2');
 
 const connection = mysql.createConnection({
-  host: 'localhost',
-  user: 'root',
+  host: 'recipe-web-app.cmryu8aekmr0.us-east-1.rds.amazonaws.com',
+  user: 'admin',
   password: 'cedhPl4329Wu',
-  database: 'recipes_web_app',
+  database: 'recipe-web-app',
+  port: 3306,
 });
 
 connection.connect((err) => {
   if (err) {
-    console.error('MySQL connection error:', err);
+    console.error('Data connection error:', err);
     return;
   }
-  console.log('Connected to MySQL!');
+  console.log('Connected to AWS RDS MySQL!');
 });
 
 module.exports = connection;

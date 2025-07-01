@@ -36,7 +36,7 @@ import { motion, AnimatePresence } from 'framer-motion';
   useEffect(() => {
     if (tags.length === 0) return;
 
-    fetch(`http://localhost:5000/api/recipes?tags=${tags.join(',')}`)
+    fetch(`http://your-ec2-backend.com/api/recipes?tags=${tags.join(',')}`)
       .then(res => res.json())
       .then(data => {
         if (Array.isArray(data)) {
