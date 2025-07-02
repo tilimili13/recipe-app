@@ -1,4 +1,4 @@
-const mysql = require('mysql2');
+const mysql = require("mysql2");
 
 const connection = mysql.createConnection({
   host: process.env.DB_HOST,
@@ -9,10 +9,10 @@ const connection = mysql.createConnection({
 
 connection.connect((err) => {
   if (err) {
-    console.error('Data connection error:', err);
+    console.error("Data connection error:", err);
     return;
   }
-  console.log('Connected to AWS RDS MySQL!');
+  console.log("Connected to AWS RDS MySQL!");
 });
 
 module.exports = connection;

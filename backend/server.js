@@ -1,38 +1,39 @@
-require('dotenv').config();
+require("dotenv").config();
 
-const express = require('express');
-const cors = require('cors');
-const db = require('./db');
-
+const express = require("express");
+const cors = require("cors");
+const db = require("./db");
 
 const app = express();
 const PORT = 5000;
 
-app.use(cors({
-  origin: 'http://localhost:3306',
-  credentials: true
-}));
+app.use(
+  cors({
+    origin: "http://localhost:3306",
+    credentials: true,
+  })
+);
 app.use(express.json());
 
-app.get('/api/ingredients', (_req, res) => {
-  db.query('SELECT name FROM ingredients', (err, results) => {
+app.get("/api/ingredients", (_req, res) => {
+  db.query("SELECT name FROM ingredients", (err, results) => {
     if (err) {
-      console.error('Error fetching data:', err);
-      return res.status(500).json({ error: 'Database error' });
+      console.error("Error fetching data:", err);
+      return res.status(500).json({ error: "Database error" });
     }
-    const names = results.map(row => row.name);
+    const names = results.map((row) => row.name);
     res.json(names);
   });
 });
 
-app.get('/api/recipes', (req, res) => {
-  const tags = (req.query.tags?.split(',') || []).map(tag => tag.trim());
+app.get("/api/recipes", (req, res) => {
+  const tags = (req.query.tags?.split(",") || []).map((tag) => tag.trim());
 
   if (tags.length === 0) {
-    return res.status(400).json({ error: 'No tags provided' });
+    return res.status(400).json({ error: "No tags provided" });
   }
 
-  const placeholders = tags.map(() => '?').join(',');
+  const placeholders = tags.map(() => "?").join(",");
   const tagCount = tags.length;
   const sql = `
     SELECT DISTINCT r.name, r.instruction
@@ -47,9 +48,9 @@ app.get('/api/recipes', (req, res) => {
 
   db.query(sql, values, (err, results) => {
     if (err) {
-      console.error('SQL Error:', err.sqlMessage);
-      console.log('Full Query:', err.sql);
-      return res.status(500).json({ error: 'Database error' });
+      console.error("SQL Error:", err.sqlMessage);
+      console.log("Full Query:", err.sql);
+      return res.status(500).json({ error: "Database error" });
     }
 
     res.json(results);
