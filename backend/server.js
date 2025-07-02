@@ -1,12 +1,15 @@
+require('dotenv').config();
+
 const express = require('express');
 const cors = require('cors');
 const db = require('./db');
+
 
 const app = express();
 const PORT = 5000;
 
 app.use(cors({
-  origin: 'http://localhost:3000',
+  origin: 'http://localhost:3306',
   credentials: true
 }));
 app.use(express.json());
@@ -44,8 +47,8 @@ app.get('/api/recipes', (req, res) => {
 
   db.query(sql, values, (err, results) => {
     if (err) {
-      console.error('❌ SQL Error:', err.sqlMessage);
-      console.log('🔍 Full Query:', err.sql);
+      console.error('SQL Error:', err.sqlMessage);
+      console.log('Full Query:', err.sql);
       return res.status(500).json({ error: 'Database error' });
     }
 
