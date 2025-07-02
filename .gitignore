@@ -32,3 +32,5 @@ backend/.git/
 
 # TypeScript cache
 *.tsbuildinfo
+
+.security.env
