@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import TagCloud from './TagCloud';
-import ReturnButton from './ReturnButton';
-import RecipesButton from './RecipesButton';
-import Container from './Container';
+import TagCloud from '../components/ui/tags/TagCloud';
+import ReturnButton from '../components/ui/button/ReturnButton';
+import RecipesButton from '../components/ui/button/RecipesButton';
+import Container from '../components/ui/container/Container';
 import styles from './IngredientPage.module.css';
 
 const IngredientPage = () => {

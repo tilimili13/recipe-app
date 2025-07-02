@@ -6,7 +6,7 @@ const app = express();
 const PORT = 5000;
 
 app.use(cors({
-  origin: 'http://my-recipe-frontend.s3-website-us-east-1.amazonaws.com',
+  origin: 'http://localhost:3000',
   credentials: true
 }));
 app.use(express.json());
