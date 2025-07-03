@@ -1,10 +1,9 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
 
 export const useSliding = (length: number) => {
   const [currentIndex, setCurrentIndex] = useState(0);
 
-    useEffect(() => {
-
+  useEffect(() => {
     setCurrentIndex(0);
   }, [length]);
 

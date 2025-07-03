@@ -1,4 +1,4 @@
-import styles from './TagCloud.module.css';
+import styles from "./TagCloud.module.css";
 
 interface TagCloudProps {
   tags: string[];
@@ -6,7 +6,11 @@ interface TagCloudProps {
   onTagClick: (tag: string) => void;
 }
 
-const TagCloud: React.FC<TagCloudProps> = ({ tags, selectedTags, onTagClick }) => {
+const TagCloud: React.FC<TagCloudProps> = ({
+  tags,
+  selectedTags,
+  onTagClick,
+}) => {
   return (
     <div className={styles.tagCloud}>
       {tags.map((tag) => {
@@ -15,7 +19,7 @@ const TagCloud: React.FC<TagCloudProps> = ({ tags, selectedTags, onTagClick }) =
         return (
           <button
             key={tag}
-            className={`${styles.tag} ${isSelected ? styles.selected : ''}`}
+            className={`${styles.tag} ${isSelected ? styles.selected : ""}`}
             onClick={() => onTagClick(tag)}
           >
             {tag} {isSelected && <span className={styles.closeIcon}>✖</span>}

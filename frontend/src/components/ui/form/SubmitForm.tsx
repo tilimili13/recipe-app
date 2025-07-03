@@ -1,13 +1,14 @@
-import { useState } from 'react';
-import styles from './SubmitForm.module.css';
+import { useState } from "react";
+import styles from "./SubmitForm.module.css";
+import { InputAlert } from "../../constants/alerts/InputAlert";
 
 interface SubmitFormProps {
   users: string[];
   onAddUser: (name: string) => void;
 }
 
-const SubmitForm: React.FC<SubmitFormProps> = ({ users, onAddUser}) => {
-  const [inputValue, setInputValue] = useState('');
+const SubmitForm: React.FC<SubmitFormProps> = ({ users, onAddUser }) => {
+  const [inputValue, setInputValue] = useState("");
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -15,27 +16,27 @@ const SubmitForm: React.FC<SubmitFormProps> = ({ users, onAddUser}) => {
     const normalized = name.toLowerCase();
 
     if (!name) {
-      alert('Please enter a name!');
+      alert(InputAlert.EMPTY_NAME);
       return;
     }
 
-    if (users.map(u => u.toLowerCase()).includes(normalized)) {
-      alert('User already exists');
+    if (users.map((u) => u.toLowerCase()).includes(normalized)) {
+      alert(InputAlert.USER_EXISTS);
       return;
     }
 
     if (users.length >= 3) {
-      alert('Maximum of 3 users allowed');
+      alert(InputAlert.MAX_USERS);
       return;
     }
 
     onAddUser(name);
-    setInputValue('');
+    setInputValue("");
   };
 
   return (
     <form onSubmit={handleSubmit}>
-      <div className={styles['input-box']}>
+      <div className={styles["input-box"]}>
         <input
           type="text"
           placeholder="New User"
@@ -44,7 +45,9 @@ const SubmitForm: React.FC<SubmitFormProps> = ({ users, onAddUser}) => {
           required
         />
       </div>
-      <button type="submit" className={styles.button}>Submit</button>
+      <button type="submit" className={styles.button}>
+        Submit
+      </button>
     </form>
   );
 };

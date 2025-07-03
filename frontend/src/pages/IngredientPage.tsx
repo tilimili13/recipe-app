@@ -1,10 +1,10 @@
-import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import TagCloud from '../components/ui/tags/TagCloud';
-import ReturnButton from '../components/ui/button/ReturnButton';
-import RecipesButton from '../components/ui/button/RecipesButton';
-import Container from '../components/ui/container/Container';
-import styles from './IngredientPage.module.css';
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import TagCloud from "../components/ui/tags/TagCloud";
+import ReturnButton from "../components/ui/button/ReturnButton";
+import RecipesButton from "../components/ui/button/RecipesButton";
+import Container from "../components/ui/container/Container";
+import styles from "./IngredientPage.module.css";
 
 const IngredientPage = () => {
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
@@ -12,13 +12,13 @@ const IngredientPage = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch('http://localhost:5000/api/ingredients')
+    fetch("http://localhost:5000/api/ingredients")
       .then((res) => res.json())
       .then((data) => {
-        console.log('Received:', data);
+        console.log("Received:", data);
         setAvailableTags(data);
       })
-      .catch((err) => console.error('Error fetching ingredients:', err));
+      .catch((err) => console.error("Error fetching ingredients:", err));
   }, []);
 
   const handleTagClick = (tag: string) => {
@@ -29,15 +29,15 @@ const IngredientPage = () => {
 
   const handleViewRecipes = () => {
     if (selectedTags.length >= 2) {
-      navigate(`/recipes?tags=${selectedTags.join(',')}`);
+      navigate(`/recipes?tags=${selectedTags.join(",")}`);
     }
   };
 
   return (
     <div>
       <Container>
-        <h1 className={styles['title']}>Welcome to the Ingredient Page</h1>
-        <p className={styles['subtitle']}>Select your ingredients here...</p>
+        <h1 className={styles["title"]}>Welcome to the Ingredient Page</h1>
+        <p className={styles["subtitle"]}>Select your ingredients here...</p>
         <TagCloud
           tags={availableTags}
           selectedTags={selectedTags}

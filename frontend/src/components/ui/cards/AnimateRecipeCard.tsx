@@ -1,8 +1,8 @@
-import { motion, AnimatePresence } from 'framer-motion';
-import styles from './AnimatedRecipeCard.module.css';
-import { Recipe } from '../../../types/Recipetypes';
+import { motion, AnimatePresence } from "framer-motion";
+import styles from "./AnimateRecipeCard.module.css";
+import { Recipe } from "../../../types/Recipetypes";
 
- interface Props {
+interface Props {
   recipe: Recipe;
   tags: string[];
   onNext: () => void;
@@ -10,7 +10,13 @@ import { Recipe } from '../../../types/Recipetypes';
   disableArrows: boolean;
 }
 
-export const AnimateRecipeCard = ({ recipe, tags, onNext, onPrev, disableArrows }: Props) => {
+export const AnimateRecipeCard = ({
+  recipe,
+  tags,
+  onNext,
+  onPrev,
+  disableArrows,
+}: Props) => {
   return (
     <AnimatePresence mode="wait">
       <motion.div
@@ -31,12 +37,16 @@ export const AnimateRecipeCard = ({ recipe, tags, onNext, onPrev, disableArrows 
         </div>
         <p>{recipe.instruction}</p>
 
-        {(
+        {
           <div className={styles.recipeArrows}>
-            <button onClick={onPrev} disabled={disableArrows}>←</button>
-            <button onClick={onNext} disabled={disableArrows}>→</button>
+            <button onClick={onPrev} disabled={disableArrows}>
+              ←
+            </button>
+            <button onClick={onNext} disabled={disableArrows}>
+              →
+            </button>
           </div>
-        )}
+        }
       </motion.div>
     </AnimatePresence>
   );

@@ -5,14 +5,9 @@ const cors = require("cors");
 const db = require("./db");
 
 const app = express();
-const PORT = 5000;
+const PORT = 3306;
 
-app.use(
-  cors({
-    origin: "http://localhost:3306",
-    credentials: true,
-  })
-);
+app.use(cors());
 app.use(express.json());
 
 app.get("/api/ingredients", (_req, res) => {

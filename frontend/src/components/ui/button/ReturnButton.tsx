@@ -1,5 +1,5 @@
-import { useNavigate } from 'react-router-dom';
-import styles from './ReturnButton.module.css';
+import { useNavigate } from "react-router-dom";
+import styles from "./ReturnButton.module.css";
 
 const ReturnButton: React.FC = () => {
   const navigate = useNavigate();
@@ -9,7 +9,9 @@ const ReturnButton: React.FC = () => {
   };
 
   return (
-    <button className={styles['returnBtn']} onClick={handleReturn}>Go back</button>
+    <button className={styles["returnBtn"]} onClick={handleReturn}>
+      Go back
+    </button>
   );
 };
 
