@@ -28,9 +28,9 @@ export const AnimateRecipeCard = ({
         transition={{ duration: 0.4 }}
       >
         <h1>{recipe.name}</h1>
-        <div className={styles.ingredientTags}>
+        <div className={styles["ingredientTags"]}>
           {tags.map((tag) => (
-            <span key={tag} className={styles.tag}>
+            <span key={tag} className={styles["tag"]}>
               {tag}
             </span>
           ))}
@@ -38,7 +38,7 @@ export const AnimateRecipeCard = ({
         <p>{recipe.instruction}</p>
 
         {
-          <div className={styles.recipeArrows}>
+          <div className={styles["recipeArrows"]}>
             <button onClick={onPrev} disabled={disableArrows}>
               ←
             </button>

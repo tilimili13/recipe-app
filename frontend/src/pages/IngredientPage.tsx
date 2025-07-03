@@ -1,25 +1,34 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
 import TagCloud from "../components/ui/tags/TagCloud";
 import ReturnButton from "../components/ui/button/ReturnButton";
 import RecipesButton from "../components/ui/button/RecipesButton";
 import Container from "../components/ui/container/Container";
 import styles from "./IngredientPage.module.css";
 
-const IngredientPage = () => {
-  const [selectedTags, setSelectedTags] = useState<string[]>([]);
-  const [availableTags, setAvailableTags] = useState<string[]>([]);
-  const navigate = useNavigate();
+const fetchIngredients = async () => {
+  const res = await fetch("http://localhost:5000/api/ingredients");
+  if (!res.ok) throw new Error("Failed fetching ingredients");
+  return res.json();
+};
 
-  useEffect(() => {
-    fetch("http://localhost:5000/api/ingredients")
-      .then((res) => res.json())
-      .then((data) => {
-        console.log("Received:", data);
-        setAvailableTags(data);
-      })
-      .catch((err) => console.error("Error fetching ingredients:", err));
-  }, []);
+const IngredientPage = () => {
+  const navigate = useNavigate();
+  const [selectedTags, setSelectedTags] = useState<string[]>([]);
+
+  const {
+    data: availableTags,
+    error,
+    isLoading,
+  } = useQuery({
+    queryKey: ["ingredients"],
+    queryFn: fetchIngredients,
+  });
+
+  if (isLoading) return <p>Loading ingredients...</p>;
+  if (error instanceof Error)
+    return <p>Error fetching ingredients: {error.message}</p>;
 
   const handleTagClick = (tag: string) => {
     setSelectedTags((prev) =>

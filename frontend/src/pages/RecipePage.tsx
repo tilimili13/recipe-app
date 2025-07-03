@@ -1,59 +1,55 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useLocation } from "react-router-dom";
-import styles from "./RecipePage.module.css";
-import Container from "../components/ui/container/Container";
-import ReturnButton from "../components/ui/button/ReturnButton";
-import { useSliding } from "../hooks/useSliding";
-import { AnimateRecipeCard } from "../components/ui/cards/AnimateRecipeCard";
+import { useQuery } from "@tanstack/react-query";
 import { Recipe } from "../types/Recipetypes";
+import { AnimateRecipeCard } from "../components/ui/cards/AnimateRecipeCard";
+import { useSliding } from "../hooks/useSliding";
+import styles from "./RecipePage.module.css";
+import ReturnButton from "../components/ui/button/ReturnButton";
+
+const fetchRecipes = async (tags: string[]) => {
+  const res = await fetch(`http://localhost:5000/?tags=${tags.join(",")}`);
+  if (!res.ok) throw new Error("Failed to fetch recipes");
+  return res.json();
+};
 
 const RecipePage = () => {
-  const [recipes, setRecipes] = useState<Recipe[]>([]);
   const location = useLocation();
-  const { currentIndex, handleNext, handlePrev } = useSliding(recipes.length);
 
   const queryParams = new URLSearchParams(location.search);
   const tags = queryParams.get("tags")?.split(",") || [];
+
+  const {
+    data: recipes = [],
+    isLoading,
+    error,
+  } = useQuery({
+    queryKey: ["recipes", tags],
+    queryFn: () => fetchRecipes(tags),
+    enabled: tags.length > 0,
+  });
+
+  const { currentIndex, handleNext, handlePrev } = useSliding(recipes.length);
   const disableArrows = recipes.length <= 1;
 
-  useEffect(() => {
-    if (tags.length === 0) return;
-
-    fetch(`http://your-ec2-backend.com/api/recipes?tags=${tags.join(",")}`)
-      .then((res) => res.json())
-      .then((data) => {
-        if (Array.isArray(data)) {
-          setRecipes(data);
-        } else {
-          console.error("Invalid data from server:", data);
-          setRecipes([]);
-        }
-        console.log("Fetched recipes:", data, "Count:", data.length);
-      })
-      .catch((err: unknown) => {
-        console.error("Failed to fetch recipes:", err);
-        setRecipes([]);
-      });
-  }, [location.search]);
+  if (error) return <p>Error fetching recipes</p>;
 
   return (
-    <div className={styles.container}>
-      <Container>
-        {recipes.length === 0 ? (
-          <>
-            <p>No recipes found for the selected tags.</p>
-            <ReturnButton />
-          </>
-        ) : (
-          <AnimateRecipeCard
-            recipe={recipes[currentIndex]}
-            tags={tags}
-            onNext={handleNext}
-            onPrev={handlePrev}
-            disableArrows={disableArrows}
-          />
-        )}
-      </Container>
+    <div className={styles["recipe-page"]}>
+      {recipes.length === 0 ? (
+        <>
+          <p>No recipes found for the selected tags.</p>
+          <ReturnButton />
+        </>
+      ) : (
+        <AnimateRecipeCard
+          recipe={recipes[currentIndex]}
+          tags={tags}
+          onNext={handleNext}
+          onPrev={handlePrev}
+          disableArrows={disableArrows}
+        />
+      )}
     </div>
   );
 };
