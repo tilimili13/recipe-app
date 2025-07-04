@@ -1,40 +1,20 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useQuery } from "@tanstack/react-query";
 import TagCloud from "../components/ui/tags/TagCloud";
 import ReturnButton from "../components/ui/button/ReturnButton";
 import RecipesButton from "../components/ui/button/RecipesButton";
 import Container from "../components/ui/container/Container";
 import styles from "./IngredientPage.module.css";
-
-const fetchIngredients = async () => {
-  const res = await fetch("http://localhost:5000/api/ingredients");
-  if (!res.ok) throw new Error("Failed fetching ingredients");
-  return res.json();
-};
+import { useIngredients } from "../hooks/useIngredients";
+import LoadingModal from "../components/ui/modal/LoadingModal";
 
 const IngredientPage = () => {
-  const navigate = useNavigate();
+  const { data: uniqueTags, isLoading, isError, error } = useIngredients();
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
+  const navigate = useNavigate();
 
-  const {
-    data: availableTags,
-    error,
-    isLoading,
-  } = useQuery({
-    queryKey: ["ingredients"],
-    queryFn: fetchIngredients,
-  });
-
-  if (isLoading) return <p>Loading ingredients...</p>;
-  if (error instanceof Error)
-    return <p>Error fetching ingredients: {error.message}</p>;
-
-  const handleTagClick = (tag: string) => {
-    setSelectedTags((prev) =>
-      prev.includes(tag) ? prev.filter((t) => t !== tag) : [...prev, tag]
-    );
-  };
+  if (isLoading) return <LoadingModal />;
+  if (isError) return <p>Error fetching ingredients: {error.message}</p>;
 
   const handleViewRecipes = () => {
     if (selectedTags.length >= 2) {
@@ -45,13 +25,21 @@ const IngredientPage = () => {
   return (
     <div>
       <Container>
-        <h1 className={styles["title"]}>Welcome to the Ingredient Page</h1>
-        <p className={styles["subtitle"]}>Select your ingredients here...</p>
+        <h1 className={styles.title}>Welcome to the Ingredient Page</h1>
+        <p className={styles.subtitle}>Select your ingredients here...</p>
+
         <TagCloud
-          tags={availableTags}
+          tags={uniqueTags || []}
           selectedTags={selectedTags}
-          onTagClick={handleTagClick}
+          onTagClick={(tag) =>
+            setSelectedTags((prev) =>
+              prev.includes(tag)
+                ? prev.filter((t) => t !== tag)
+                : [...prev, tag]
+            )
+          }
         />
+
         <ReturnButton />
         <RecipesButton
           isActive={selectedTags.length >= 2}

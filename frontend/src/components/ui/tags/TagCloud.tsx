@@ -1,28 +1,27 @@
 import styles from "./TagCloud.module.css";
-
-interface TagCloudProps {
-  tags: string[];
-  selectedTags: string[];
-  onTagClick: (tag: string) => void;
-}
+import { TagCloudProps } from "../../../types/Tags";
 
 const TagCloud: React.FC<TagCloudProps> = ({
   tags,
   selectedTags,
   onTagClick,
 }) => {
+  console.log("Rendering TagCloud:", { tags, selectedTags });
+
   return (
-    <div className={styles.tagCloud}>
+    <div className={styles["tagCloud"]}>
       {tags.map((tag) => {
         const isSelected = selectedTags.includes(tag);
-
         return (
           <button
             key={tag}
-            className={`${styles.tag} ${isSelected ? styles.selected : ""}`}
+            className={`${styles["tag"]} ${
+              isSelected ? styles["selected"] : ""
+            }`}
             onClick={() => onTagClick(tag)}
           >
-            {tag} {isSelected && <span className={styles.closeIcon}>✖</span>}
+            {tag}
+            {isSelected && <span className={styles["remove-icon"]}>✖</span>}
           </button>
         );
       })}

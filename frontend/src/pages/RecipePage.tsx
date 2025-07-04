@@ -6,12 +6,7 @@ import { AnimateRecipeCard } from "../components/ui/cards/AnimateRecipeCard";
 import { useSliding } from "../hooks/useSliding";
 import styles from "./RecipePage.module.css";
 import ReturnButton from "../components/ui/button/ReturnButton";
-
-const fetchRecipes = async (tags: string[]) => {
-  const res = await fetch(`http://localhost:5000/?tags=${tags.join(",")}`);
-  if (!res.ok) throw new Error("Failed to fetch recipes");
-  return res.json();
-};
+import { fetchRecipes } from "../api/recipes";
 
 const RecipePage = () => {
   const location = useLocation();
@@ -23,7 +18,7 @@ const RecipePage = () => {
     data: recipes = [],
     isLoading,
     error,
-  } = useQuery({
+  } = useQuery<Recipe[]>({
     queryKey: ["recipes", tags],
     queryFn: () => fetchRecipes(tags),
     enabled: tags.length > 0,
