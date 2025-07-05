@@ -1,11 +1,11 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useIngredients } from "../hooks/useIngredients";
 import TagCloud from "../components/ui/tags/TagCloud";
 import ReturnButton from "../components/ui/button/ReturnButton";
 import RecipesButton from "../components/ui/button/RecipesButton";
 import Container from "../components/ui/container/Container";
 import styles from "./IngredientPage.module.css";
-import { useIngredients } from "../hooks/useIngredients";
 import LoadingModal from "../components/ui/modal/LoadingModal";
 
 const IngredientPage = () => {
